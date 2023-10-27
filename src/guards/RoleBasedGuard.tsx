@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { RoleBasedGuardProps } from "./interface";
-import { useAuth } from "@hooks/useAuth";
+import { useAuth } from "@hooks/index";
 
 const RoleBasedGuard: FC<RoleBasedGuardProps> = ({
     children,
