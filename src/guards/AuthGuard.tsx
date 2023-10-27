@@ -1,7 +1,7 @@
 import { FC, PropsWithChildren } from "react";
 import { Navigate } from "react-router-dom";
-import { useAuth } from "@hooks/useAuth";
 import config from "@configs/index";
+import { useAuth } from "@hooks/index";
 
 const AuthGuard: FC<PropsWithChildren> = ({ children }) => {
     const { isInitialized, isAuthenticated } = useAuth();

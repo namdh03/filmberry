@@ -14,3 +14,8 @@ export interface GoogleUser {
 export interface SystemUser extends GoogleUser {
     role: Role;
 }
+
+export interface LocalStorageValue<T> {
+    key: string;
+    initialValue: T;
+}
