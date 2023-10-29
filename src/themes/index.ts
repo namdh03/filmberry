@@ -1,39 +1,58 @@
-import { PaletteMode } from "@mui/material";
-import { amber, deepOrange, grey } from "@mui/material/colors";
+import { PaletteMode, PaletteOptions } from "@mui/material";
 
-const theme = {
-    palette: {
-        primary: amber,
+export const lightTheme: PaletteOptions = {
+    primary: {
+        main: "#6F5CF1",
+    },
+    secondary: {
+        main: "rgb(203 213 225)",
+    },
+    warning: {
+        main: "#FFAD49",
+    },
+    background: {
+        default: "rgba(0, 0, 0, 0.2)",
+        paper: "#FFFFFF",
+    },
+    text: {
+        primary: "#0D0C11",
+        secondary: "#6F5CF1",
+        disabled: "rgba(0,0,0,0.3)",
+    },
+};
+
+export const darkTheme: PaletteOptions = {
+    primary: {
+        main: "#6F5CF1",
+    },
+    secondary: {
+        main: "#1E293B",
+    },
+    background: {
+        default: "rgba(0, 0, 0, 0.5)",
+        paper: "#0F172A",
+    },
+    text: {
+        primary: "#FFFFFF",
+        secondary: "#FFFFFF",
+        disabled: "rgba(0,0,0,0.3)",
     },
 };
 
 export const getDesignTokens = (mode: PaletteMode) => ({
+    typography: {
+        fontFamily: "Poppins, sans-serif",
+    },
     palette: {
         mode,
         ...(mode === "light"
             ? {
                   // palette values for light mode
-                  primary: amber,
-                  divider: amber[200],
-                  text: {
-                      primary: grey[900],
-                      secondary: grey[800],
-                  },
+                  ...lightTheme,
               }
             : {
                   // palette values for dark mode
-                  primary: deepOrange,
-                  divider: deepOrange[700],
-                  background: {
-                      default: deepOrange[900],
-                      paper: deepOrange[900],
-                  },
-                  text: {
-                      primary: "#fff",
-                      secondary: grey[500],
-                  },
+                  ...darkTheme,
               }),
     },
 });
-
-export default theme;

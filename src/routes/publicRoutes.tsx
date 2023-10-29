@@ -1,8 +1,9 @@
 import config from "@configs/index";
 import GuestGuard from "@/guards/GuestGuard";
-import Login from "@pages/Login";
+import MainLayout from "@layouts/MainLayout";
 import Home from "@pages/Home";
-import AuthGuard from "@/guards/AuthGuard";
+import Login from "@pages/Login";
+import Movies from "@pages/Movies/Movies";
 
 const publicRoutes = [
     {
@@ -14,12 +15,17 @@ const publicRoutes = [
         ),
     },
     {
-        path: config.routes.public.home,
-        element: (
-            <AuthGuard>
-                <Home />
-            </AuthGuard>
-        ),
+        element: <MainLayout />,
+        children: [
+            {
+                path: config.routes.public.home,
+                element: <Home />,
+            },
+            {
+                path: config.routes.public.movies,
+                element: <Movies />,
+            },
+        ],
     },
 ];
 
