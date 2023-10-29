@@ -5,6 +5,7 @@ import Home from "@pages/Home";
 import Login from "@pages/Login";
 import Movies from "@pages/Movies";
 import Movie from "@pages/Movie";
+import Contact from "@pages/Contact";
 
 const publicRoutes = [
     {
@@ -29,6 +30,10 @@ const publicRoutes = [
             {
                 path: config.routes.public.movie,
                 element: <Movie />,
+            },
+            {
+                path: config.routes.public.contact,
+                element: <Contact />,
             },
         ],
     },
