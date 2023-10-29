@@ -1,8 +1,21 @@
-import { Button, Rating, Stack, Typography } from "@mui/material";
 import { MovieContent, MovieWrapper } from "./Movie.styled";
 import { MovieItem } from "./Movie.type";
 
+import { Button, Rating, Stack, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+
+import config from "@configs/index";
+import useLocalStorage from "@hooks/useLocalStorage";
+
 const Movie = ({ movie }: { movie: MovieItem }) => {
+    const navigate = useNavigate();
+    const [, setId] = useLocalStorage(config.localStorages.movieId, movie.id);
+
+    const handleClickMovie = () => {
+        setId(movie.id);
+        navigate(config.routes.public.movie);
+    };
+
     return (
         <MovieWrapper component="article">
             <figure>
@@ -21,7 +34,9 @@ const Movie = ({ movie }: { movie: MovieItem }) => {
                 </Stack>
             </MovieContent>
 
-            <Button variant="contained">Watch Now</Button>
+            <Button variant="contained" onClick={handleClickMovie}>
+                Watch Now
+            </Button>
         </MovieWrapper>
     );
 };

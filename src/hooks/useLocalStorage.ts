@@ -1,26 +1,21 @@
 import { useState } from "react";
-import { LocalStorageValue } from "@utils/interfaces";
 
-export default function useLocalStorage<T>({
-    key,
-    initialValue,
-}: LocalStorageValue<T>): [T, (value: T) => void] {
+export default function useLocalStorage<T>(key: string, initialValue: T) {
     const [storedValue, setStoredValue] = useState<T>(() => {
         try {
             const item = window.localStorage.getItem(key);
-            return item ? (JSON.parse(item) as T) : initialValue;
+            return item ? JSON.parse(item) : initialValue;
         } catch (error) {
             console.log(error);
             return initialValue;
         }
     });
 
-    const setValue = (value: T) => {
+    const setValue = (value: T | ((prev: T) => T)) => {
         try {
             const valueToStore =
-                value instanceof Function
-                    ? (value as (prevState: T) => T)(storedValue)
-                    : value;
+                value instanceof Function ? value(storedValue) : value;
+
             setStoredValue(valueToStore);
             window.localStorage.setItem(key, JSON.stringify(valueToStore));
         } catch (error) {
@@ -28,5 +23,8 @@ export default function useLocalStorage<T>({
         }
     };
 
-    return [storedValue, setValue];
+    return [storedValue, setValue] as [
+        T,
+        (value: T | ((prev: T) => T)) => void
+    ];
 }

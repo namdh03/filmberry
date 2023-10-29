@@ -5,10 +5,10 @@ import { getDesignTokens } from "@themes/index";
 import config from "@configs/index";
 
 export default function useColorTheme() {
-    const [theme, setTheme] = useLocalStorage<PaletteMode>({
-        key: config.localStorages.theme,
-        initialValue: config.localStorages.light,
-    });
+    const [theme, setTheme] = useLocalStorage<PaletteMode>(
+        config.localStorages.theme,
+        config.localStorages.light
+    );
     const [mode, setMode] = React.useState<PaletteMode>(theme);
 
     if (

@@ -10,7 +10,7 @@ export type MovieItem = {
     poster_path: string;
     release_date: string;
     title: string;
-    video: boolean;
+    video_url: string;
     vote_average: number;
     vote_count: number;
 };

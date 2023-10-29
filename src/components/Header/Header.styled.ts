@@ -4,7 +4,7 @@ export const HeaderWrapper = styled(Box)`
     position: fixed;
     width: 100%;
     background: ${({ theme }) => theme.palette.background.paper};
-    z-index: 9999;
+    z-index: 10;
 `;
 
 export const HeaderInner = styled(Box)`
