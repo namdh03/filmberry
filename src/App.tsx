@@ -1,7 +1,7 @@
+import Router from "./routes";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "@mui/material";
-import Router from "./routes";
-import useThemeContext from "@hooks/useThemeContext";
+import {  useThemeContext } from "@/hooks/index";
 
 const App = () => {
     const { theme } = useThemeContext();

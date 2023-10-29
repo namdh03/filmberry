@@ -5,7 +5,7 @@ const routes = {
         movies: "/movies",
         movie: "/movie",
         contact: "/contact",
-        blog: "/blog",
+        suggest: "/suggest",
         about: "/about",
     },
     private: {},

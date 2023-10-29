@@ -6,6 +6,7 @@ import Login from "@pages/Login";
 import Movies from "@pages/Movies";
 import Movie from "@pages/Movie";
 import Contact from "@pages/Contact";
+import Suggest from "@pages/Suggest";
 
 const publicRoutes = [
     {
@@ -34,6 +35,10 @@ const publicRoutes = [
             {
                 path: config.routes.public.contact,
                 element: <Contact />,
+            },
+            {
+                path: config.routes.public.suggest,
+                element: <Suggest />,
             },
         ],
     },

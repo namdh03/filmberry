@@ -17,7 +17,7 @@ export const ContactWrapper = styled(Box)`
 
     & .MuiTypography-body1 {
         margin: 20px auto 0 auto;
-        width: 600px;
+        width: 800px;
         font-size: 16px;
         line-height: 1.62;
         color: ${({ theme }) => theme.palette.text.primary};
