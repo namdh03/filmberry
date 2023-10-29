@@ -4,7 +4,7 @@ import { useLocalStorage } from ".";
 import { getDesignTokens } from "@themes/index";
 import config from "@configs/index";
 
-const useColorTheme = () => {
+export default function useColorTheme() {
     const [theme, setTheme] = useLocalStorage<PaletteMode>({
         key: config.localStorages.theme,
         initialValue: config.localStorages.light,
@@ -39,6 +39,4 @@ const useColorTheme = () => {
         mode,
         toggleColorMode,
     };
-};
-
-export default useColorTheme;
+}

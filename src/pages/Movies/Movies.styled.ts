@@ -7,6 +7,7 @@ export const MoviesWrapper = styled(Box)`
 
 export const MoviesInner = styled(Box)`
     display: flex;
+    align-items: center;
     flex-direction: column;
     row-gap: 40px;
 `;
