@@ -15,17 +15,17 @@ const nav: NavItem[] = [
     {
         id: configs.routes.public.contact,
         url: configs.routes.public.contact,
-        label: "Contact Us",
-    },
-    {
-        id: configs.routes.public.blog,
-        url: configs.routes.public.blog,
-        label: "Blog",
+        label: "Contact",
     },
     {
         id: configs.routes.public.about,
         url: configs.routes.public.about,
-        label: "About Us",
+        label: "About",
+    },
+    {
+        id: configs.routes.public.suggest,
+        url: configs.routes.public.suggest,
+        label: "Suggest",
     },
 ];
 
