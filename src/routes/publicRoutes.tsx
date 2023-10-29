@@ -3,7 +3,8 @@ import GuestGuard from "@/guards/GuestGuard";
 import MainLayout from "@layouts/MainLayout";
 import Home from "@pages/Home";
 import Login from "@pages/Login";
-import Movies from "@pages/Movies/Movies";
+import Movies from "@pages/Movies";
+import Movie from "@pages/Movie";
 
 const publicRoutes = [
     {
@@ -24,6 +25,10 @@ const publicRoutes = [
             {
                 path: config.routes.public.movies,
                 element: <Movies />,
+            },
+            {
+                path: config.routes.public.movie,
+                element: <Movie />,
             },
         ],
     },

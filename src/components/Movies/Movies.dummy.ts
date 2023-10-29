@@ -20,7 +20,8 @@ export const dummy: MoviesType = {
             poster_path: "/iwsMu0ehRPbtaSxqiaUDQB9qMWT.jpg",
             release_date: "2023-09-15",
             title: "Expend4bles",
-            video: false,
+            video_url:
+                "https://www.youtube.com/embed/XnJxjvNqLX8?si=x41Ds_aJYUfnWwaj",
             vote_average: 6.425,
             vote_count: 477,
         },
@@ -37,7 +38,8 @@ export const dummy: MoviesType = {
             poster_path: "/A4j8S6moJS2zNtRR8oWF08gRnL5.jpg",
             release_date: "2023-10-25",
             title: "Five Nights at Freddy's",
-            video: false,
+            video_url:
+                "https://www.youtube.com/embed/XnJxjvNqLX8?si=x41Ds_aJYUfnWwaj",
             vote_average: 8.637,
             vote_count: 519,
         },
@@ -54,7 +56,8 @@ export const dummy: MoviesType = {
             poster_path: "/b0Ej6fnXAP8fK75hlyi2jKqdhHz.jpg",
             release_date: "2023-08-30",
             title: "The Equalizer 3",
-            video: false,
+            video_url:
+                "https://www.youtube.com/embed/XnJxjvNqLX8?si=x41Ds_aJYUfnWwaj",
             vote_average: 7.316,
             vote_count: 1142,
         },
@@ -71,7 +74,8 @@ export const dummy: MoviesType = {
             poster_path: "/qVKirUdmoex8SdfUk8WDDWwrcCh.jpg",
             release_date: "2023-10-04",
             title: "The Exorcist: Believer",
-            video: false,
+            video_url:
+                "https://www.youtube.com/embed/XnJxjvNqLX8?si=x41Ds_aJYUfnWwaj",
             vote_average: 5.991,
             vote_count: 272,
         },
@@ -88,7 +92,8 @@ export const dummy: MoviesType = {
             poster_path: "/aQPeznSu7XDTrrdCtT5eLiu52Yu.jpg",
             release_date: "2023-09-26",
             title: "Saw X",
-            video: false,
+            video_url:
+                "https://www.youtube.com/embed/XnJxjvNqLX8?si=x41Ds_aJYUfnWwaj",
             vote_average: 7.285,
             vote_count: 486,
         },
@@ -105,7 +110,8 @@ export const dummy: MoviesType = {
             poster_path: "/5gzzkR7y3hnY8AD1wXjCnVlHba5.jpg",
             release_date: "2023-09-06",
             title: "The Nun II",
-            video: false,
+            video_url:
+                "https://www.youtube.com/embed/XnJxjvNqLX8?si=x41Ds_aJYUfnWwaj",
             vote_average: 6.968,
             vote_count: 1154,
         },
@@ -122,7 +128,8 @@ export const dummy: MoviesType = {
             poster_path: "/qA5kPYZA7FkVvqcEfJRoOy4kpHg.jpg",
             release_date: "2023-07-03",
             title: "Sound of Freedom",
-            video: false,
+            video_url:
+                "https://www.youtube.com/embed/XnJxjvNqLX8?si=x41Ds_aJYUfnWwaj",
             vote_average: 8.119,
             vote_count: 1025,
         },
@@ -139,7 +146,8 @@ export const dummy: MoviesType = {
             poster_path: "/51tqzRtKMMZEYUpSYkrUE7v9ehm.jpg",
             release_date: "2023-08-09",
             title: "Gran Turismo",
-            video: false,
+            video_url:
+                "https://www.youtube.com/embed/XnJxjvNqLX8?si=x41Ds_aJYUfnWwaj",
             vote_average: 8.066,
             vote_count: 1193,
         },
@@ -156,7 +164,8 @@ export const dummy: MoviesType = {
             poster_path: "/tPyj6Gii1HrnzCbJXEF7JdSFkQ8.jpg",
             release_date: "2023-10-19",
             title: "Desperation Road",
-            video: false,
+            video_url:
+                "https://www.youtube.com/embed/XnJxjvNqLX8?si=x41Ds_aJYUfnWwaj",
             vote_average: 6.75,
             vote_count: 12,
         },
@@ -173,7 +182,8 @@ export const dummy: MoviesType = {
             poster_path: "/mXLOHHc1Zeuwsl4xYKjKh2280oL.jpg",
             release_date: "2023-08-16",
             title: "Blue Beetle",
-            video: false,
+            video_url:
+                "https://www.youtube.com/embed/XnJxjvNqLX8?si=x41Ds_aJYUfnWwaj",
             vote_average: 7.052,
             vote_count: 1406,
         },
@@ -190,7 +200,8 @@ export const dummy: MoviesType = {
             poster_path: "/aTvePCU7exLepwg5hWySjwxojQK.jpg",
             release_date: "2023-09-21",
             title: "PAW Patrol: The Mighty Movie",
-            video: false,
+            video_url:
+                "https://www.youtube.com/embed/XnJxjvNqLX8?si=x41Ds_aJYUfnWwaj",
             vote_average: 7.227,
             vote_count: 66,
         },
@@ -207,7 +218,8 @@ export const dummy: MoviesType = {
             poster_path: "/oUmmY7QWWn7OhKlcPOnirHJpP1F.jpg",
             release_date: "2023-08-23",
             title: "Retribution",
-            video: false,
+            video_url:
+                "https://www.youtube.com/embed/XnJxjvNqLX8?si=x41Ds_aJYUfnWwaj",
             vote_average: 6.979,
             vote_count: 512,
         },
@@ -224,7 +236,8 @@ export const dummy: MoviesType = {
             poster_path: "/kdPMUMJzyYAc4roD52qavX0nLIC.jpg",
             release_date: "2023-07-26",
             title: "Talk to Me",
-            video: false,
+            video_url:
+                "https://www.youtube.com/embed/XnJxjvNqLX8?si=x41Ds_aJYUfnWwaj",
             vote_average: 7.193,
             vote_count: 1584,
         },
@@ -241,7 +254,8 @@ export const dummy: MoviesType = {
             poster_path: "/dfS5qHWFuXyZQnwYREwb7N4qU5p.jpg",
             release_date: "2023-09-29",
             title: "57 Seconds",
-            video: false,
+            video_url:
+                "https://www.youtube.com/embed/XnJxjvNqLX8?si=x41Ds_aJYUfnWwaj",
             vote_average: 5.6,
             vote_count: 131,
         },
@@ -258,7 +272,8 @@ export const dummy: MoviesType = {
             poster_path: "/iuFNMS8U5cb6xfzi51Dbkovj7vM.jpg",
             release_date: "2023-07-19",
             title: "Barbie",
-            video: false,
+            video_url:
+                "https://www.youtube.com/embed/XnJxjvNqLX8?si=x41Ds_aJYUfnWwaj",
             vote_average: 7.221,
             vote_count: 5625,
         },
@@ -275,7 +290,8 @@ export const dummy: MoviesType = {
             poster_path: "/hr8ZtwdbtjBquxlTCrczr685K5T.jpg",
             release_date: "2023-09-24",
             title: "Once Upon a Studio",
-            video: false,
+            video_url:
+                "https://www.youtube.com/embed/XnJxjvNqLX8?si=x41Ds_aJYUfnWwaj",
             vote_average: 8.807,
             vote_count: 158,
         },
@@ -292,7 +308,8 @@ export const dummy: MoviesType = {
             poster_path: "/gGEsBPAijhVUFoiNpgZXqRVWJt2.jpg",
             release_date: "2017-10-27",
             title: "Coco",
-            video: false,
+            video_url:
+                "https://www.youtube.com/embed/XnJxjvNqLX8?si=x41Ds_aJYUfnWwaj",
             vote_average: 8.221,
             vote_count: 17909,
         },
@@ -309,7 +326,8 @@ export const dummy: MoviesType = {
             poster_path: "/sFBDjWdw8gHSI2dMivP7H52iwvp.jpg",
             release_date: "2023-10-11",
             title: "Dark Harvest",
-            video: false,
+            video_url:
+                "https://www.youtube.com/embed/XnJxjvNqLX8?si=x41Ds_aJYUfnWwaj",
             vote_average: 5.816,
             vote_count: 76,
         },
@@ -326,7 +344,8 @@ export const dummy: MoviesType = {
             poster_path: "/qXChf7MFL36BgoLkiB3BzXiwW82.jpg",
             release_date: "2023-09-29",
             title: "Muzzle",
-            video: false,
+            video_url:
+                "https://www.youtube.com/embed/XnJxjvNqLX8?si=x41Ds_aJYUfnWwaj",
             vote_average: 6.326,
             vote_count: 43,
         },
@@ -343,7 +362,8 @@ export const dummy: MoviesType = {
             poster_path: "/uQxjZGU6rxSPSMeAJPJQlmfV3ys.jpg",
             release_date: "2023-09-13",
             title: "After Everything",
-            video: false,
+            video_url:
+                "https://www.youtube.com/embed/XnJxjvNqLX8?si=x41Ds_aJYUfnWwaj",
             vote_average: 6.922,
             vote_count: 392,
         },

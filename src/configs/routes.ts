@@ -3,6 +3,7 @@ const routes = {
         home: "/",
         login: "/login",
         movies: "/movies",
+        movie: "/movie",
         contact: "/contact",
         blog: "/blog",
         about: "/about",
