@@ -19,3 +19,8 @@ export interface LocalStorageValue<T> {
     key: string;
     initialValue: T;
 }
+
+export interface Dates {
+    maximum: string,
+    minimum: string,
+}
