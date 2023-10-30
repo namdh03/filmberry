@@ -26,7 +26,7 @@ const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
 
     useEffect(() => {
         (() => {
-            const accessToken = localStorage.getItem("accessToken");
+            const accessToken = cookies.getToken();
 
             if (!accessToken) {
                 return dispatch(

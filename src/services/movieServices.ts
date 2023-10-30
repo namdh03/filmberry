@@ -1,9 +1,9 @@
 import { get } from "@utils/api";
 
 type ParamType = {
-    page: number;
-    limit: number;
-    search: string;
+    page?: number;
+    limit?: number;
+    search?: string;
 };
 
 export const filterMovies = (params: object) => {

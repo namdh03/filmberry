@@ -6,7 +6,7 @@ import { useRef, useEffect, useState } from "react";
 import Container from "@components/Container";
 import Movie from "@components/Movies/Movie";
 import useDebounce from "@hooks/useDebounce";
-import { getAllMovies, getMoviesByParams } from "@/services/movieServices";
+import { getMoviesByParams } from "@/services/movieServices";
 import { MovieItem } from "@components/Movies/Movie/Movie.type";
 import { default as MovieListSkeleton } from "@components/Skeleton/MovieList";
 
@@ -24,14 +24,16 @@ const Movies = () => {
             try {
                 setLoading(true);
 
-                const { data } = await getAllMovies();
+                const { data } = await getMoviesByParams({
+                    search: debouncedValue,
+                });
 
                 totalPage.current = data.length;
             } finally {
                 setLoading(false);
             }
         })();
-    }, []);
+    }, [debouncedValue]);
 
     // Get movies by params
     useEffect(() => {
