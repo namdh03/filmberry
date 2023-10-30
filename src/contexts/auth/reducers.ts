@@ -1,5 +1,6 @@
 import { AuthActionType } from "./enums";
 import { PayloadAction, AuthState, ReducerHandler } from "./interface";
+import cookies from "@utils/cookies";
 
 const reducerHandlers: ReducerHandler = {
     INITIALIZE(state: AuthState, action: PayloadAction<AuthState>): AuthState {
@@ -54,7 +55,7 @@ export function signIn(payload: AuthState): PayloadAction<AuthState> {
 }
 
 export function signOut(): PayloadAction<AuthState> {
-    localStorage.removeItem("ACCESS_TOKEN");
+    cookies.removeToken();
 
     return {
         type: AuthActionType.SIGN_OUT,

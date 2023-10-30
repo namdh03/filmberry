@@ -24,12 +24,13 @@ const Toast = memo(
         return (
             <Snackbar
                 open={open}
-                autoHideDuration={2000}
+                autoHideDuration={200000}
                 onClose={handleClose}
                 anchorOrigin={{
                     vertical: "top",
                     horizontal: "right",
                 }}
+                style={{ right: "35px" }}
             >
                 <Alert
                     severity={type}

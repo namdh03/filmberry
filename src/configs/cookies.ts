@@ -1,5 +1,5 @@
 const cookies = {
-    token: "token",
+    token: "access_token",
 };
 
 export default cookies;

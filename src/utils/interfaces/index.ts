@@ -1,14 +1,21 @@
 import { Role } from "@utils/enums";
 
 export interface GoogleUser {
-    sub: string;
-    name: string;
-    given_name: string;
-    family_name: string;
-    picture: string;
+    aud: string;
+    azp: string;
     email: string;
-    verified: boolean;
+    email_verified: boolean;
+    exp: number;
+    family_name: string;
+    given_name: string;
+    iat: number;
+    iss: string;
+    jti: string;
     locale: string;
+    name: string;
+    nbf: number;
+    picture: string;
+    sub: string;
 }
 
 export interface SystemUser extends GoogleUser {
