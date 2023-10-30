@@ -13,13 +13,14 @@ export const BannerWrapper = styled(Box)`
 
 export const BannerInner = styled(Box)`
     position: relative;
+    height: 530px;
 
     & figure {
         position: relative;
         top: 0;
         margin: 0;
         width: 100%;
-        height: 530px;
+        height: 100%;
 
         & img {
             display: block;

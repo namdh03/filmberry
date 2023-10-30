@@ -65,7 +65,7 @@ export const BannerContent = styled(Box)`
     }
 
     & h1.MuiTypography-h1 {
-        margin: 16px 0 24px;
+        margin: 20px 0;
         color: ${darkTheme.text?.primary};
         font-size: 36px;
         font-weight: 600;
@@ -118,6 +118,7 @@ export const Poster = styled(Box)`
 export const Content = styled(Box)`
     display: flex;
     flex-direction: column;
+    flex: 1;
     max-width: 480px;
 
     & > .MuiTypography-h2 {

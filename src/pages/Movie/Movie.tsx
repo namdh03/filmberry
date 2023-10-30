@@ -1,6 +1,6 @@
 import * as St from "./Movie.styled";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Navigate, Link } from "react-router-dom";
 import {
     Box,
@@ -8,88 +8,166 @@ import {
     Button,
     Container,
     Rating,
+    Skeleton,
     Typography,
 } from "@mui/material";
 
 import config from "@configs/index";
 import { darkTheme } from "@themes/index";
-import { dummy } from "@components/Movies/Movies.dummy";
+import { MovieItem } from "@components/Movies/Movie/Movie.type";
+import { getMovieById } from "@/services/movieServices";
+import { embedYoutubeURL } from "@utils/embedYoutubeURL";
+import useLocalStorage from "@hooks/useLocalStorage";
+import Toast from "@components/Toast/Toast";
 
 const Movie = () => {
-    const id = localStorage.getItem(config.localStorages.movieId);
+    const [id] = useLocalStorage(config.localStorages.movieId, 0);
+    const [movie, setMovie] = useState<MovieItem>();
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<boolean>(false);
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    if (!id) return <Navigate to={config.routes.public.home} />;
+    useEffect(() => {
+        (async () => {
+            try {
+                if (!id) return <Navigate to={config.routes.public.home} />;
 
-    const movie = dummy.results.find((item) => item.id === +id);
+                const { data } = await getMovieById(+id);
+                console.log(data);
 
-    if (!movie) return <Navigate to={config.routes.public.home} />;
+                setMovie(data);
+            } catch (error) {
+                setError(true);
+            } finally {
+                setLoading(false);
+            }
+        })();
+    }, [id]);
 
     const movieInfo = [
         {
             id: 1,
             label: "Language",
-            content: movie.original_language,
+            content: movie?.original_language,
         },
         {
             id: 2,
             label: "Release Date",
-            content: movie.release_date,
+            content: movie?.release_date,
         },
 
         {
             id: 3,
             label: "Popularity",
-            content: movie.popularity,
+            content: movie?.popularity,
         },
 
         {
             id: 4,
             label: "Vote Average",
             icon: <Rating max={1} value={1} size="small" />,
-            content: movie.vote_average.toFixed(1),
+            content: movie?.vote_average.toFixed(1),
         },
 
         {
             id: 5,
             label: "Vote Count",
-            content: movie.vote_count,
+            content: movie?.vote_count,
         },
     ];
 
     return (
         <>
+            {error && (
+                <Toast
+                    message="Error!"
+                    type="error"
+                    open={error}
+                    setOpen={setError}
+                />
+            )}
+
             <St.BannerSection component="section">
                 <Container>
                     <St.BannerInner>
-                        <St.BannerImg component="figure">
-                            <img
-                                src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
-                                alt={movie.title}
+                        {loading ? (
+                            <Skeleton
+                                variant="rounded"
+                                height={480}
+                                sx={{ borderRadius: "40px" }}
                             />
-                        </St.BannerImg>
+                        ) : (
+                            <St.BannerImg component="figure">
+                                <img
+                                    src={movie?.backdrop_path}
+                                    alt={movie?.title}
+                                    loading="lazy"
+                                />
+                            </St.BannerImg>
+                        )}
 
                         <St.BannerContent>
                             <Breadcrumbs aria-label="breadcrumb">
-                                <Link to={config.routes.public.home}>
-                                    Filmberry
-                                </Link>
-                                <Link to={config.routes.public.movies}>
-                                    Movies
-                                </Link>
+                                {loading ? (
+                                    <Skeleton animation="wave" variant="text">
+                                        <Link to={config.routes.public.home}>
+                                            Filmberry
+                                        </Link>
+                                    </Skeleton>
+                                ) : (
+                                    <Link to={config.routes.public.home}>
+                                        Filmberry
+                                    </Link>
+                                )}
+
+                                {loading ? (
+                                    <Skeleton animation="wave" variant="text">
+                                        <Link to={config.routes.public.movies}>
+                                            Movies
+                                        </Link>
+                                    </Skeleton>
+                                ) : (
+                                    <Link to={config.routes.public.movies}>
+                                        Movies
+                                    </Link>
+                                )}
                             </Breadcrumbs>
 
-                            <Typography variant="h1">{movie.title}</Typography>
+                            <Typography variant="h1">
+                                {loading ? (
+                                    <Skeleton
+                                        animation="wave"
+                                        variant="text"
+                                        width="100%"
+                                    />
+                                ) : (
+                                    movie?.title
+                                )}
+                            </Typography>
 
                             <div>
-                                <Button
-                                    variant="contained"
-                                    onClick={handleOpen}
-                                >
-                                    Watch Now
-                                </Button>
+                                {loading ? (
+                                    <Skeleton
+                                        animation="wave"
+                                        variant="rounded"
+                                    >
+                                        <Button
+                                            variant="contained"
+                                            onClick={handleOpen}
+                                        >
+                                            Watch Now
+                                        </Button>
+                                    </Skeleton>
+                                ) : (
+                                    <Button
+                                        variant="contained"
+                                        onClick={handleOpen}
+                                    >
+                                        Watch Now
+                                    </Button>
+                                )}
 
                                 <St.MovieModal
                                     open={open}
@@ -99,7 +177,9 @@ const Movie = () => {
                                         <iframe
                                             width="100%"
                                             height="100%"
-                                            src={movie.video_url}
+                                            src={embedYoutubeURL(
+                                                movie?.video_url || ""
+                                            )}
                                             style={{
                                                 borderRadius: "40px",
                                                 border: "none",
@@ -123,30 +203,62 @@ const Movie = () => {
                 <Container>
                     <St.BodyInner>
                         <St.Poster component="figure">
-                            <img
-                                src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
-                                alt={movie.title}
-                            />
+                            {loading ? (
+                                <Skeleton
+                                    variant="rounded"
+                                    width={480}
+                                    height={720}
+                                    sx={{ borderRadius: "24px" }}
+                                />
+                            ) : (
+                                <img
+                                    src={movie?.poster_path}
+                                    alt={movie?.title}
+                                    loading="lazy"
+                                />
+                            )}
                         </St.Poster>
 
                         <St.Content>
                             <Typography variant="h2">
-                                {movie.original_title}
+                                {loading ? (
+                                    <Skeleton animation="wave" variant="text" />
+                                ) : (
+                                    movie?.original_title
+                                )}
                             </Typography>
 
                             <Typography variant="body1">
-                                {movie.overview}
+                                {loading ? (
+                                    <Skeleton
+                                        animation="wave"
+                                        variant="rounded"
+                                        height={200}
+                                    />
+                                ) : (
+                                    movie?.overview
+                                )}
                             </Typography>
 
                             {movieInfo.map((item) => (
                                 <St.Info key={item.id}>
-                                    <Typography variant="h3">
-                                        {item.label}:
-                                    </Typography>
-                                    <Typography variant="body1">
-                                        {item.content}
-                                        {item.icon && item.icon}
-                                    </Typography>
+                                    {loading ? (
+                                        <Skeleton
+                                            animation="wave"
+                                            variant="text"
+                                            width="50%"
+                                        />
+                                    ) : (
+                                        <>
+                                            <Typography variant="h3">
+                                                {item.label}:
+                                            </Typography>
+                                            <Typography variant="body1">
+                                                {item.content}
+                                                {item.icon && item.icon}
+                                            </Typography>
+                                        </>
+                                    )}
                                 </St.Info>
                             ))}
                         </St.Content>

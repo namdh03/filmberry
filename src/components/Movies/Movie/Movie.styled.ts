@@ -11,6 +11,7 @@ export const MovieWrapper = styled(Box)`
 
     & figure {
         margin: 0;
+        min-width: 243px;
         width: 100%;
         height: 250px;
 
