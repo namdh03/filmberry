@@ -6,6 +6,10 @@ export const MoviesWrapper = styled(Box)`
 `;
 
 export const MoviesContainer = styled(Box)`
+    & .swiper {
+        width: 100%;
+    }
+
     &.MuiBox-root {
         display: flex;
         align-items: center;

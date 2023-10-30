@@ -18,11 +18,6 @@ const nav: NavItem[] = [
         label: "Contact",
     },
     {
-        id: configs.routes.public.about,
-        url: configs.routes.public.about,
-        label: "About",
-    },
-    {
         id: configs.routes.public.suggest,
         url: configs.routes.public.suggest,
         label: "Suggest",

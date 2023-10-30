@@ -1,20 +1,56 @@
 import { MovieList, MoviesInner, MoviesWrapper } from "./Movies.styled";
 
-import { Pagination, TextField } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { Pagination, TextField, Typography } from "@mui/material";
+import { useRef, useEffect, useState } from "react";
 
 import Container from "@components/Container";
 import Movie from "@components/Movies/Movie";
 import useDebounce from "@hooks/useDebounce";
-import { dummy } from "@components/Movies/Movies.dummy";
+import { getAllMovies, getMoviesByParams } from "@/services/movieServices";
+import { MovieItem } from "@components/Movies/Movie/Movie.type";
+import { default as MovieListSkeleton } from "@components/Skeleton/MovieList";
 
 const Movies = () => {
+    const [movies, setMovies] = useState<MovieItem[]>([]);
+    const totalPage = useRef<number>(0);
     const [search, setSearch] = useState<string>("");
+    const [loading, setLoading] = useState<boolean>(true);
+    const [currentPage, setCurrentPage] = useState<number>(1);
     const debouncedValue = useDebounce<string>(search, 500);
 
+    // Get all movies (fake get total pages)
     useEffect(() => {
-        console.log(debouncedValue);
-    }, [debouncedValue]);
+        (async () => {
+            try {
+                setLoading(true);
+
+                const { data } = await getAllMovies();
+
+                totalPage.current = data.length;
+            } finally {
+                setLoading(false);
+            }
+        })();
+    }, []);
+
+    // Get movies by params
+    useEffect(() => {
+        (async () => {
+            try {
+                setLoading(true);
+
+                const { data } = await getMoviesByParams({
+                    page: currentPage,
+                    limit: 8,
+                    search: debouncedValue,
+                });
+
+                setMovies(data);
+            } finally {
+                setLoading(false);
+            }
+        })();
+    }, [currentPage, debouncedValue]);
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;
@@ -22,10 +58,10 @@ const Movies = () => {
     };
 
     const handleChangePage = (
-        event: React.ChangeEvent<unknown>,
+        _event: React.ChangeEvent<unknown>,
         page: number
     ) => {
-        console.log(event, page);
+        setCurrentPage(page);
     };
 
     return (
@@ -42,16 +78,33 @@ const Movies = () => {
                     />
 
                     <MovieList>
-                        {dummy.results.map((movie) => (
-                            <Movie key={movie.id} movie={movie} />
-                        ))}
+                        {loading ? (
+                            <MovieListSkeleton count={8} />
+                        ) : (
+                            movies.map((movie) => (
+                                <Movie key={movie.id} movie={movie} />
+                            ))
+                        )}
                     </MovieList>
-                    <Pagination
-                        count={dummy.results.length}
-                        shape="rounded"
-                        size="large"
-                        onChange={handleChangePage}
-                    />
+
+                    {movies.length > 0 ? (
+                        <Pagination
+                            count={Math.ceil(totalPage.current / 8)}
+                            shape="rounded"
+                            size="large"
+                            onChange={handleChangePage}
+                            disabled={loading}
+                        />
+                    ) : (
+                        <Typography
+                            sx={{
+                                color: "text.primary",
+                                fontSize: "20px",
+                            }}
+                        >
+                            Not Found!
+                        </Typography>
+                    )}
                 </MoviesInner>
             </Container>
         </MoviesWrapper>

@@ -1,7 +1,6 @@
 export type MovieItem = {
     adult: boolean;
     backdrop_path: string;
-    genre_ids: number[];
     id: number;
     original_language: string;
     original_title: string;
@@ -13,4 +12,6 @@ export type MovieItem = {
     video_url: string;
     vote_average: number;
     vote_count: number;
+    type: string;
+    top: boolean;
 };

@@ -6,7 +6,6 @@ const routes = {
         movie: "/movie",
         contact: "/contact",
         suggest: "/suggest",
-        about: "/about",
     },
     private: {},
 };

@@ -5,8 +5,9 @@ import {
     WatchNow,
 } from "./Banner.styled";
 
-import { Box, Chip, Rating, Typography } from "@mui/material";
+import { Box, Chip, Rating, Skeleton, Typography } from "@mui/material";
 import { PlayArrowRounded } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -20,63 +21,93 @@ import "swiper/css/effect-fade";
 import { Autoplay, EffectFade, Pagination } from "swiper/modules";
 
 import Container from "@components/Container";
-import { MoviesType } from "@components/Movies/Movies.type";
+import config from "@configs/index";
+import { useLocalStorage } from "@hooks/index";
+import { MovieItem } from "@components/Movies/Movie/Movie.type";
 
-const Banner = ({ list }: { list: MoviesType }) => {
+const Banner = ({ list, loading }: { list: MovieItem[]; loading: boolean }) => {
+    const navigate = useNavigate();
+    const [, setId] = useLocalStorage(config.localStorages.movieId, 0);
+
+    const handleClickMovie = (id: number) => {
+        setId(id);
+        navigate(config.routes.public.movie);
+    };
+
     return (
         <BannerWrapper component="section">
             <Container>
-                <Swiper
-                    grabCursor
-                    spaceBetween={20}
-                    centeredSlides={true}
-                    effect={"fade"}
-                    autoplay={{
-                        delay: 2000,
-                        disableOnInteraction: false,
-                    }}
-                    pagination={{
-                        clickable: true,
-                    }}
-                    modules={[Autoplay, EffectFade, Pagination]}
-                >
-                    {list.results.map((movie) => (
-                        <SwiperSlide key={movie.id}>
-                            <BannerInner component="section">
-                                <figure>
-                                    <img
-                                        src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
-                                        alt={movie.title}
-                                    />
-                                </figure>
-
-                                <Box>
-                                    <Chip label="TOP" color="primary" />
-
-                                    <Typography variant="h1">
-                                        {movie.title}
-                                    </Typography>
-
-                                    <Typography>{movie.overview}</Typography>
-
-                                    <RatingWrapper>
-                                        <Rating
-                                            max={1}
-                                            value={1}
-                                            size="large"
+                {loading ? (
+                    <Skeleton
+                        variant="rounded"
+                        height={530}
+                        sx={{ borderRadius: "16px" }}
+                    />
+                ) : (
+                    <Swiper
+                        grabCursor
+                        spaceBetween={20}
+                        centeredSlides={true}
+                        effect={"fade"}
+                        autoplay={{
+                            delay: 2000,
+                            disableOnInteraction: false,
+                        }}
+                        pagination={{
+                            clickable: true,
+                        }}
+                        modules={[Autoplay, EffectFade, Pagination]}
+                    >
+                        {list.map((movie) => (
+                            <SwiperSlide key={movie.id}>
+                                <BannerInner component="section">
+                                    <figure>
+                                        <img
+                                            src={movie.backdrop_path}
+                                            alt={movie.title}
+                                            loading="lazy"
                                         />
-                                        <Typography>5.8</Typography>
-                                    </RatingWrapper>
+                                    </figure>
 
-                                    <WatchNow variant="contained">
-                                        <PlayArrowRounded />
-                                        <Typography>WATCH</Typography>
-                                    </WatchNow>
-                                </Box>
-                            </BannerInner>
-                        </SwiperSlide>
-                    ))}
-                </Swiper>
+                                    <Box>
+                                        {movie.top && (
+                                            <Chip label="TOP" color="primary" />
+                                        )}
+
+                                        <Typography variant="h1">
+                                            {movie.title}
+                                        </Typography>
+
+                                        <Typography>
+                                            {movie.overview}
+                                        </Typography>
+
+                                        <RatingWrapper>
+                                            <Rating
+                                                max={1}
+                                                value={1}
+                                                size="large"
+                                            />
+                                            <Typography>
+                                                {movie.vote_average.toFixed(1)}
+                                            </Typography>
+                                        </RatingWrapper>
+
+                                        <WatchNow
+                                            variant="contained"
+                                            onClick={() =>
+                                                handleClickMovie(movie.id)
+                                            }
+                                        >
+                                            <PlayArrowRounded />
+                                            <Typography>WATCH</Typography>
+                                        </WatchNow>
+                                    </Box>
+                                </BannerInner>
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
+                )}
             </Container>
         </BannerWrapper>
     );

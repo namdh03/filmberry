@@ -1,21 +1,14 @@
 import { ContactWrapper } from "./Contact.styled";
-import { Alert, Button, Snackbar, Typography } from "@mui/material";
-import { SyntheticEvent, useState } from "react";
+import { Button, Typography } from "@mui/material";
+import { useState } from "react";
 import Container from "@components/Container";
+import Toast from "@components/Toast/Toast";
 
 const Contact = () => {
     const [open, setOpen] = useState(false);
 
     const handleClick = () => {
         setOpen(true);
-    };
-
-    const handleClose = (_event?: SyntheticEvent | Event, reason?: string) => {
-        if (reason === "clickaway") {
-            return;
-        }
-
-        setOpen(false);
     };
 
     return (
@@ -92,23 +85,12 @@ const Contact = () => {
                                 Contact us
                             </Button>
 
-                            <Snackbar
+                            <Toast
+                                message="New feature coming soon!"
+                                type="info"
                                 open={open}
-                                autoHideDuration={2000}
-                                onClose={handleClose}
-                                anchorOrigin={{
-                                    vertical: "top",
-                                    horizontal: "right",
-                                }}
-                            >
-                                <Alert
-                                    onClose={handleClose}
-                                    severity="info"
-                                    sx={{ width: "100%" }}
-                                >
-                                    New feature coming soon!
-                                </Alert>
-                            </Snackbar>
+                                setOpen={setOpen}
+                            />
                         </div>
                     </form>
                 </div>
