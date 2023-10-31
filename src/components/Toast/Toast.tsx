@@ -1,12 +1,6 @@
-import { Alert, AlertColor, Snackbar } from "@mui/material";
+import { Alert, Snackbar } from "@mui/material";
 import { SyntheticEvent, memo } from "react";
-
-type ToastProps = {
-    message: string;
-    type?: AlertColor;
-    open: boolean;
-    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-};
+import { ToastProps } from "./Toast.type";
 
 const Toast = memo(
     ({ message, type = "success", open, setOpen }: ToastProps) => {
@@ -24,7 +18,7 @@ const Toast = memo(
         return (
             <Snackbar
                 open={open}
-                autoHideDuration={200000}
+                autoHideDuration={2000}
                 onClose={handleClose}
                 anchorOrigin={{
                     vertical: "top",

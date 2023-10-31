@@ -59,7 +59,7 @@ export default function SignIn() {
                 >
                     <Avatar
                         sx={{
-                            m: 1,
+                            m: 4,
                             bgcolor: "primary.main",
                             color: darkTheme.text?.primary,
                         }}
@@ -83,23 +83,24 @@ export default function SignIn() {
                             margin="normal"
                             required
                             fullWidth
+                            type="text"
                             id="username"
                             label="Username"
                             name="username"
                             autoComplete="username"
                             autoFocus
-                            sx={{ color: "text.secondary" }}
                         />
                         <TextField
                             margin="normal"
                             required
                             fullWidth
-                            name="password"
-                            label="Password"
                             type="password"
                             id="password"
+                            label="Password"
+                            name="password"
                             autoComplete="current-password"
                         />
+
                         <FormControlLabel
                             control={
                                 <Checkbox value="remember" color="primary" />
@@ -110,6 +111,7 @@ export default function SignIn() {
                         <Button
                             type="submit"
                             fullWidth
+                            size="large"
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
                             onClick={() => setOpen(true)}

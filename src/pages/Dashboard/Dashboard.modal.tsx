@@ -7,20 +7,18 @@ import {
     DialogTitle,
 } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
-import { Dispatch, MouseEventHandler, SetStateAction, memo } from "react";
+import { memo } from "react";
+import { DashboardProps } from "./Dashboard.type";
 
 const DashboardModal = memo(
     ({
+        title,
+        description,
         loading,
         open,
         setOpen,
         handleSubmit,
-    }: {
-        loading: boolean;
-        open: boolean;
-        setOpen: Dispatch<SetStateAction<boolean>>;
-        handleSubmit: MouseEventHandler<HTMLButtonElement>;
-    }) => {
+    }: DashboardProps) => {
         return (
             <Dialog
                 open={open}
@@ -28,13 +26,10 @@ const DashboardModal = memo(
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
-                <DialogTitle id="alert-dialog-title">
-                    Are you sure you want to delete this movie?
-                </DialogTitle>
+                <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        Deleting this movie will permanently remove it and
-                        cannot be undone. Please confirm you understand.
+                        {description}
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>

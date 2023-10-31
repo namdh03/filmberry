@@ -1,4 +1,5 @@
 import { get, put, remove } from "@utils/api";
+import { MovieItem } from "@components/Movies/Movie/Movie.type";
 
 type ParamType = {
     page?: number;
@@ -28,4 +29,8 @@ export const deleteMovie = (id: number) => {
 
 export const markMovieTop = (id: number, status: boolean) => {
     return put(`/movies/${id}`, { top: status });
+};
+
+export const updateMovie = (id: number, data: MovieItem) => {
+    return put(`/movies/${id}`, data);
 };

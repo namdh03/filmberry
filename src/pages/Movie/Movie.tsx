@@ -35,7 +35,6 @@ const Movie = () => {
                 if (!id) return <Navigate to={config.routes.public.home} />;
 
                 const { data } = await getMovieById(+id);
-                console.log(data);
 
                 setMovie(data);
             } catch (error) {

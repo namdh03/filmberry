@@ -5,8 +5,6 @@ import {
     Stack,
     Button,
     Avatar,
-    styled,
-    Badge,
     Menu,
     MenuItem,
 } from "@mui/material";
@@ -23,36 +21,9 @@ import config from "@configs/index";
 import { useAuth, useThemeContext } from "@hooks/index";
 import { signOut } from "@contexts/auth/reducers";
 import Container from "@components/Container";
-import MaterialUISwitch from "./Header.switch";
 
-const StyledBadge = styled(Badge)(({ theme }) => ({
-    "& .MuiBadge-badge": {
-        backgroundColor: theme.palette.success.main,
-        color: theme.palette.success.main,
-        boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
-        "&::after": {
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            borderRadius: "50%",
-            animation: "ripple 1.2s infinite ease-in-out",
-            border: "1px solid currentColor",
-            content: '""',
-        },
-    },
-    "@keyframes ripple": {
-        "0%": {
-            transform: "scale(.8)",
-            opacity: 1,
-        },
-        "100%": {
-            transform: "scale(2.4)",
-            opacity: 0,
-        },
-    },
-}));
+import MaterialUISwitch from "./Header.switch";
+import StyledBadge from "./Header.badge";
 
 const Header = () => {
     const navigate = useNavigate();
@@ -108,7 +79,7 @@ const Header = () => {
 
                     <Stack direction="row" alignItems="center">
                         <MaterialUISwitch
-                            defaultChecked={mode !== "dark"}
+                            checked={mode !== "dark"}
                             onClick={toggleColorMode}
                         />
 
@@ -146,9 +117,6 @@ const Header = () => {
                                         "aria-labelledby": "basic-button",
                                     }}
                                 >
-                                    <MenuItem onClick={handleClose}>
-                                        Profile
-                                    </MenuItem>
                                     <MenuItem onClick={handleDashboard}>
                                         Dashboard
                                     </MenuItem>

@@ -7,14 +7,19 @@ import {
     GridToolbar,
 } from "@mui/x-data-grid";
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
+import config from "@configs/index";
+import useLocalStorage from "@hooks/useLocalStorage";
 import {
     deleteMovie,
     getAllMovies,
     markMovieTop,
 } from "@/services/movieServices";
+import { ToastProps } from "@components/Toast/Toast.type";
 import { MovieItem } from "@components/Movies/Movie/Movie.type";
 import Container from "@components/Container";
+import Toast from "@components/Toast";
 
 import DashboardModal from "./Dashboard.modal";
 import dashboardColumns from "./Dashboard.columns";
@@ -22,6 +27,17 @@ import IOSSwitch from "./Dashboard.switch";
 import { DashboardWrapper } from "./Dashboard.styled";
 
 const Dashboard = () => {
+    const navigate = useNavigate();
+    const [, setMovie] = useLocalStorage(config.localStorages.movieId, 0);
+    const [toast, setToast] = useState<ToastProps>({
+        message: "",
+        type: "success",
+        open: false,
+        setOpen: () => {
+            setToast((prevToast) => ({ ...prevToast, open: false }));
+        },
+    });
+
     const [rows, setRows] = useState<MovieItem[]>([]);
     const columns = useRef<GridColDef[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
@@ -44,6 +60,7 @@ const Dashboard = () => {
                             props: GridRenderCellParams<MovieItem>
                         ) => (
                             <IOSSwitch
+                                disabled={loading}
                                 defaultChecked={props.row.top}
                                 onChange={() =>
                                     handleToggleTopMovie(
@@ -70,13 +87,18 @@ const Dashboard = () => {
                                 <Edit
                                     cursor="pointer"
                                     sx={{ color: "warning.main" }}
+                                    onClick={() => {
+                                        setMovie(props.row.id);
+                                        navigate(config.routes.private.edit);
+                                    }}
                                 />
                                 <Delete
                                     cursor="pointer"
                                     sx={{ color: "error.main" }}
-                                    onClick={() =>
-                                        handleOpenModal(props.row.id)
-                                    }
+                                    onClick={() => {
+                                        setOpenModal(true);
+                                        movieId.current = props.row.id;
+                                    }}
                                 />
                             </Stack>
                         ),
@@ -87,12 +109,8 @@ const Dashboard = () => {
                 console.log(error);
             }
         })();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
-    const handleOpenModal = (id: number) => {
-        setOpenModal(true);
-        movieId.current = id;
-    };
 
     const handleToggleTopMovie = async (id: number, value: boolean) => {
         try {
@@ -117,6 +135,12 @@ const Dashboard = () => {
             setRows((prevRows) =>
                 prevRows.filter((row) => row.id !== movieId.current)
             );
+
+            setToast({
+                ...toast,
+                message: "Movie deleted successfully!",
+                open: true,
+            });
         } catch (error) {
             console.log(error);
         } finally {
@@ -161,11 +185,23 @@ const Dashboard = () => {
             </Container>
 
             <DashboardModal
+                title="Are you sure you want to delete this movie?"
+                description="Deleting this movie will permanently remove it and
+                cannot be undone. Please confirm you understand."
                 loading={loading}
                 open={openModal}
                 setOpen={setOpenModal}
                 handleSubmit={handleDeleteMovie}
             />
+
+            {toast && (
+                <Toast
+                    message={toast.message}
+                    type={toast.type}
+                    open={toast.open}
+                    setOpen={toast.setOpen}
+                />
+            )}
         </DashboardWrapper>
     );
 };
