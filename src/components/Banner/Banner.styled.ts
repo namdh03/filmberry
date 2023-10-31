@@ -2,7 +2,7 @@ import { Box, Button, styled } from "@mui/material";
 import { darkTheme } from "@themes/index";
 
 export const BannerWrapper = styled(Box)`
-    height: 100vh;
+    min-height: 100vh;
     padding-top: 150px;
     background: ${({ theme }) => theme.palette.background.paper};
 

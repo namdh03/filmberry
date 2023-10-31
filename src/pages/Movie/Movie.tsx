@@ -1,5 +1,3 @@
-import * as St from "./Movie.styled";
-
 import { useEffect, useState } from "react";
 import { Navigate, Link } from "react-router-dom";
 import {
@@ -14,11 +12,13 @@ import {
 
 import config from "@configs/index";
 import { darkTheme } from "@themes/index";
-import { MovieItem } from "@components/Movies/Movie/Movie.type";
-import { getMovieById } from "@/services/movieServices";
-import { embedYoutubeURL } from "@utils/embedYoutubeURL";
 import useLocalStorage from "@hooks/useLocalStorage";
-import Toast from "@components/Toast/Toast";
+import { embedYoutubeURL } from "@utils/embedYoutubeURL";
+import { getMovieById } from "@/services/movieServices";
+import { MovieItem } from "@components/Movies/Movie/Movie.type";
+import Toast from "@components/Toast";
+
+import * as St from "./Movie.styled";
 
 const Movie = () => {
     const [id] = useLocalStorage(config.localStorages.movieId, 0);
@@ -67,7 +67,7 @@ const Movie = () => {
         {
             id: 4,
             label: "Vote Average",
-            icon: <Rating max={1} value={1} size="small" />,
+            icon: <Rating max={1} value={1} sx={{ color: "warning.main" }} />,
             content: movie?.vote_average.toFixed(1),
         },
 

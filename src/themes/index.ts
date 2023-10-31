@@ -7,8 +7,17 @@ export const lightTheme: PaletteOptions = {
     secondary: {
         main: "rgb(203 213 225)",
     },
+    success: {
+        main: "#47D764",
+    },
+    info: {
+        main: "#2F86EB",
+    },
     warning: {
-        main: "#FFAD49",
+        main: "#FFC021",
+    },
+    error: {
+        main: "#FF355B",
     },
     background: {
         default: "rgba(0, 0, 0, 0.2)",
@@ -27,6 +36,18 @@ export const darkTheme: PaletteOptions = {
     },
     secondary: {
         main: "#1E293B",
+    },
+    success: {
+        main: "#47D764",
+    },
+    info: {
+        main: "#2F86EB",
+    },
+    warning: {
+        main: "#FFC021",
+    },
+    error: {
+        main: "#FF355B",
     },
     background: {
         default: "rgba(0, 0, 0, 0.5)",

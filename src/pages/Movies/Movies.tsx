@@ -1,14 +1,14 @@
-import { MovieList, MoviesInner, MoviesWrapper } from "./Movies.styled";
-
 import { Pagination, TextField, Typography } from "@mui/material";
 import { useRef, useEffect, useState } from "react";
 
-import Container from "@components/Container";
-import Movie from "@components/Movies/Movie";
 import useDebounce from "@hooks/useDebounce";
 import { getMoviesByParams } from "@/services/movieServices";
 import { MovieItem } from "@components/Movies/Movie/Movie.type";
+import Container from "@components/Container";
+import Movie from "@components/Movies/Movie";
 import { default as MovieListSkeleton } from "@components/Skeleton/MovieList";
+
+import { MovieList, MoviesInner, MoviesWrapper } from "./Movies.styled";
 
 const Movies = () => {
     const [movies, setMovies] = useState<MovieItem[]>([]);

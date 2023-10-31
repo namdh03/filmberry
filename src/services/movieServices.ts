@@ -1,4 +1,4 @@
-import { get } from "@utils/api";
+import { get, put, remove } from "@utils/api";
 
 type ParamType = {
     page?: number;
@@ -20,4 +20,12 @@ export const getMoviesByParams = (params: ParamType) => {
 
 export const getAllMovies = () => {
     return get(`/movies`);
+};
+
+export const deleteMovie = (id: number) => {
+    return remove(`/movies/${id}`);
+};
+
+export const markMovieTop = (id: number, status: boolean) => {
+    return put(`/movies/${id}`, { top: status });
 };

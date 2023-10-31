@@ -7,7 +7,9 @@ const routes = {
         contact: "/contact",
         suggest: "/suggest",
     },
-    private: {},
+    private: {
+        dashboard: "/dashboard",
+    },
 };
 
 export default routes;

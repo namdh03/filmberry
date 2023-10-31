@@ -1,6 +1,6 @@
 import { Divider, Typography } from "@mui/material";
-import { FooterWrapper } from "./Footer.styled";
 import Container from "@components/Container";
+import { FooterWrapper } from "./Footer.styled";
 
 const Footer = () => {
     return (

@@ -2,13 +2,13 @@ import {
     FC,
     PropsWithChildren,
     createContext,
-    useEffect,
+    useLayoutEffect,
     useReducer,
 } from "react";
-import { AuthContextType, AuthState } from "./interface";
-import { initialize, reducer } from "./reducers";
 import cookies from "@utils/cookies";
 import { SystemUser } from "@utils/interfaces";
+import { AuthContextType, AuthState } from "./interface";
+import { initialize, reducer } from "./reducers";
 
 const initialState: AuthState = {
     isAuthenticated: false,
@@ -24,7 +24,7 @@ const AuthContext = createContext<AuthContextType>({
 const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         (() => {
             const accessToken = cookies.getToken();
 
@@ -36,6 +36,7 @@ const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
 
             try {
                 const user = cookies.decodeJwt()! as SystemUser;
+
                 dispatch(initialize({ isAuthenticated: true, user }));
             } catch (error) {
                 dispatch(initialize({ isAuthenticated: false, user: null }));

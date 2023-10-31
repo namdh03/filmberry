@@ -1,9 +1,3 @@
-import nav from "./Header.navbar";
-import { HeaderWrapper, HeaderInner, Navbar, NavItem } from "./Header.styled";
-
-import { MouseEvent, useState } from "react";
-import { googleLogout } from "@react-oauth/google";
-import { Link, NavLink, useNavigate } from "react-router-dom";
 import {
     Typography,
     IconButton,
@@ -16,23 +10,25 @@ import {
     Menu,
     MenuItem,
 } from "@mui/material";
-import {
-    Brightness4,
-    Brightness7,
-    PlayArrowRounded,
-} from "@mui/icons-material";
+import { PlayArrowRounded } from "@mui/icons-material";
+import { MouseEvent, useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { googleLogout } from "@react-oauth/google";
+
+import nav from "./Header.navbar";
+import { HeaderWrapper, HeaderInner, Navbar, NavItem } from "./Header.styled";
 
 import logo from "@assets/svg/logo.svg";
-import Container from "@components/Container";
 import config from "@configs/index";
-import useThemeContext from "@hooks/useThemeContext";
-import useAuth from "@hooks/useAuth";
+import { useAuth, useThemeContext } from "@hooks/index";
 import { signOut } from "@contexts/auth/reducers";
+import Container from "@components/Container";
+import MaterialUISwitch from "./Header.switch";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     "& .MuiBadge-badge": {
-        backgroundColor: "#44b700",
-        color: "#44b700",
+        backgroundColor: theme.palette.success.main,
+        color: theme.palette.success.main,
         boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
         "&::after": {
             position: "absolute",
@@ -74,6 +70,11 @@ const Header = () => {
         setAnchorEl(null);
     };
 
+    const handleDashboard = () => {
+        navigate(config.routes.private.dashboard);
+        handleClose();
+    };
+
     const handleLogout = () => {
         handleClose();
         dispatch(signOut());
@@ -105,14 +106,11 @@ const Header = () => {
                         ))}
                     </Navbar>
 
-                    <Stack direction="row" alignItems="center" columnGap="11px">
-                        <IconButton onClick={toggleColorMode}>
-                            {mode === "dark" ? (
-                                <Brightness7 />
-                            ) : (
-                                <Brightness4 />
-                            )}
-                        </IconButton>
+                    <Stack direction="row" alignItems="center">
+                        <MaterialUISwitch
+                            defaultChecked={mode !== "dark"}
+                            onClick={toggleColorMode}
+                        />
 
                         {user ? (
                             <>
@@ -151,7 +149,7 @@ const Header = () => {
                                     <MenuItem onClick={handleClose}>
                                         Profile
                                     </MenuItem>
-                                    <MenuItem onClick={handleClose}>
+                                    <MenuItem onClick={handleDashboard}>
                                         Dashboard
                                     </MenuItem>
 
