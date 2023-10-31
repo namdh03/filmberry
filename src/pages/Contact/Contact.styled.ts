@@ -2,7 +2,7 @@ import { Box, styled } from "@mui/material";
 import { darkTheme, lightTheme } from "@themes/index";
 
 export const ContactWrapper = styled(Box)`
-    height: 100vh;
+    min-height: 100vh;
     padding: 170px 0 20px;
     text-align: center;
     background: ${({ theme }) => theme.palette.background.paper};

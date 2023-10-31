@@ -1,11 +1,11 @@
-import { MovieContent, MovieWrapper } from "./Movie.styled";
-import { MovieItem } from "./Movie.type";
-
 import { Button, Rating, Stack, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 import config from "@configs/index";
 import useLocalStorage from "@hooks/useLocalStorage";
+
+import { MovieItem } from "./Movie.type";
+import { MovieContent, MovieWrapper } from "./Movie.styled";
 
 const Movie = ({ movie }: { movie: MovieItem }) => {
     const navigate = useNavigate();
@@ -30,7 +30,12 @@ const Movie = ({ movie }: { movie: MovieItem }) => {
                 <Typography>{movie.title}</Typography>
 
                 <Stack direction="row" alignItems="center">
-                    <Rating max={1} value={1} size="small" />
+                    <Rating
+                        max={1}
+                        value={1}
+                        size="small"
+                        sx={{ color: "warning.main" }}
+                    />
                     <Typography>{movie.vote_average.toFixed(1)}</Typography>
                 </Stack>
             </MovieContent>

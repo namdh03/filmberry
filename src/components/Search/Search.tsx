@@ -1,6 +1,6 @@
-import { SearchWrapper } from "./Search.styled";
 import { InputAdornment, InputLabel } from "@mui/material";
 import { SearchOutlined } from "@mui/icons-material";
+import { SearchWrapper } from "./Search.styled";
 
 const Search = () => {
     return (

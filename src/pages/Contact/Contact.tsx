@@ -1,8 +1,8 @@
-import { ContactWrapper } from "./Contact.styled";
 import { Button, Typography } from "@mui/material";
 import { useState } from "react";
 import Container from "@components/Container";
-import Toast from "@components/Toast/Toast";
+import Toast from "@components/Toast";
+import { ContactWrapper } from "./Contact.styled";
 
 const Contact = () => {
     const [open, setOpen] = useState(false);

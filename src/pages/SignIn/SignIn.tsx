@@ -1,5 +1,3 @@
-import { useState, FormEvent } from "react";
-import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -12,15 +10,17 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Divider, Stack } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-
-import { SignInWrapper } from "./SignIn.styled";
+import { useState, FormEvent } from "react";
+import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
 
 import { darkTheme } from "@themes/index";
-import cookies from "@utils/cookies";
 import useAuth from "@hooks/useAuth";
+import cookies from "@utils/cookies";
 import { SystemUser } from "@utils/interfaces";
 import { signIn } from "@contexts/auth/reducers";
-import Toast from "@components/Toast/Toast";
+import Toast from "@components/Toast";
+
+import { SignInWrapper } from "./SignIn.styled";
 
 export default function SignIn() {
     const [open, setOpen] = useState<boolean>(false);
@@ -138,7 +138,7 @@ export default function SignIn() {
                                     variant="body2"
                                     sx={{ color: "text.secondary" }}
                                 >
-                                    {"Don't have an account? Sign Up"}
+                                    Don't have an account? Sign Up
                                 </Link>
                             </Grid>
                         </Grid>

@@ -1,10 +1,3 @@
-import {
-    RatingWrapper,
-    BannerInner,
-    BannerWrapper,
-    WatchNow,
-} from "./Banner.styled";
-
 import { Box, Chip, Rating, Skeleton, Typography } from "@mui/material";
 import { PlayArrowRounded } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
@@ -20,10 +13,17 @@ import "swiper/css/effect-fade";
 // import required modules
 import { Autoplay, EffectFade, Pagination } from "swiper/modules";
 
-import Container from "@components/Container";
 import config from "@configs/index";
 import { useLocalStorage } from "@hooks/index";
+import Container from "@components/Container";
 import { MovieItem } from "@components/Movies/Movie/Movie.type";
+
+import {
+    RatingWrapper,
+    BannerInner,
+    BannerWrapper,
+    WatchNow,
+} from "./Banner.styled";
 
 const Banner = ({ list, loading }: { list: MovieItem[]; loading: boolean }) => {
     const navigate = useNavigate();
@@ -87,6 +87,7 @@ const Banner = ({ list, loading }: { list: MovieItem[]; loading: boolean }) => {
                                                 max={1}
                                                 value={1}
                                                 size="large"
+                                                sx={{ color: "warning.main" }}
                                             />
                                             <Typography>
                                                 {movie.vote_average.toFixed(1)}

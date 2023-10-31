@@ -1,10 +1,10 @@
-import * as St from "./Suggest.styled";
-
 import { Box, Button, Container, Typography } from "@mui/material";
 import { useState } from "react";
 
 import Search from "@components/Search";
-import Toast from "@components/Toast/Toast";
+import Toast from "@components/Toast";
+
+import * as St from "./Suggest.styled";
 
 const Suggest = () => {
     const [open, setOpen] = useState(false);

@@ -1,8 +1,8 @@
 import { createTheme, PaletteMode } from "@mui/material";
 import React, { useEffect } from "react";
-import { useLocalStorage } from ".";
-import { getDesignTokens } from "@themes/index";
 import config from "@configs/index";
+import { getDesignTokens } from "@themes/index";
+import { useLocalStorage } from ".";
 
 export default function useColorTheme() {
     const [theme, setTheme] = useLocalStorage<PaletteMode>(

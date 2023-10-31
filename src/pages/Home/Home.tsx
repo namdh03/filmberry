@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 
+import { MovieList } from "@utils/types";
+import { MovieType } from "@utils/enums";
+import { filterMovies } from "@/services/movieServices";
 import Banner from "@components/Banner";
 import Movies from "@components/Movies";
-import Toast from "@components/Toast/Toast";
-import { MovieList } from "@utils/types";
-import { filterMovies } from "@/services/movieServices";
-import { MovieType } from "@utils/enums";
+import Toast from "@components/Toast";
 
 const Home = () => {
     const [movies, setMovies] = useState<MovieList>({

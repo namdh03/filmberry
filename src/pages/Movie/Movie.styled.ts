@@ -102,7 +102,7 @@ export const BodyInner = styled(Box)`
 `;
 
 export const Poster = styled(Box)`
-    max-width: 480px;
+    width: 480px;
     height: 720px;
     margin: 0;
 

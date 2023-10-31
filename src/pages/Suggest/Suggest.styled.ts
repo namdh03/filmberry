@@ -1,7 +1,7 @@
 import { Box, styled } from "@mui/material";
 
 export const SuggestWrapper = styled(Box)`
-    height: 100vh;
+    min-height: 100vh;
     padding: 170px 0 20px;
     background: ${({ theme }) => theme.palette.background.paper};
 

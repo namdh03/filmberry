@@ -1,7 +1,3 @@
-import Movie from "./Movie";
-import { MoviesContainer, MoviesWrapper } from "./Movies.styled";
-import { MoviesWrapperProps } from "./Movies.type";
-
 import { IconButton, Skeleton, Stack, Typography } from "@mui/material";
 import { PlayArrowRounded } from "@mui/icons-material";
 
@@ -15,8 +11,12 @@ import "swiper/css";
 import { Autoplay } from "swiper/modules";
 
 import Container from "@components/Container";
-import { MovieList } from "@pages/Movies/Movies.styled";
 import { default as MovieListSkeleton } from "@components/Skeleton/MovieList";
+import { MovieList } from "@pages/Movies/Movies.styled";
+
+import Movie from "./Movie";
+import { MoviesWrapperProps } from "./Movies.type";
+import { MoviesContainer, MoviesWrapper } from "./Movies.styled";
 
 const Movies = ({ title, list, loading }: MoviesWrapperProps) => {
     return (

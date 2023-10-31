@@ -1,5 +1,5 @@
-import { NavItem } from "./Header.interface";
 import configs from "@configs/index";
+import { NavItem } from "./Header.interface";
 
 const nav: NavItem[] = [
     {
