@@ -35,7 +35,6 @@ const Movie = () => {
                 if (!id) return <Navigate to={config.routes.public.home} />;
 
                 const { data } = await getMovieById(+id);
-                console.log(data);
 
                 setMovie(data);
             } catch (error) {
@@ -68,7 +67,7 @@ const Movie = () => {
             id: 4,
             label: "Vote Average",
             icon: <Rating max={1} value={1} sx={{ color: "warning.main" }} />,
-            content: movie?.vote_average.toFixed(1),
+            content: Number(movie?.vote_average).toFixed(1),
         },
 
         {

@@ -36,7 +36,9 @@ const Movie = ({ movie }: { movie: MovieItem }) => {
                         size="small"
                         sx={{ color: "warning.main" }}
                     />
-                    <Typography>{movie.vote_average.toFixed(1)}</Typography>
+                    <Typography>
+                        {Number(movie.vote_average).toFixed(1)}
+                    </Typography>
                 </Stack>
             </MovieContent>
 

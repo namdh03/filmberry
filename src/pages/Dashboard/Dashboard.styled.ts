@@ -2,12 +2,11 @@ import { Box, styled } from "@mui/material";
 
 export const DashboardWrapper = styled(Box)`
     min-height: 100vh;
-    padding-top: 170px;
+    padding-top: 130px;
     background: ${({ theme }) => theme.palette.background.paper};
 
-    & .MuiDataGrid-toolbarContainer {
-        margin-left: auto;
-        margin-right: auto;
+    & .MuiDataGrid-columnHeaderTitle {
+        color: ${({ theme }) => theme.palette.primary.main};
     }
 
     & .MuiDataGrid-root .MuiDataGrid-booleanCell[data-value="true"] {

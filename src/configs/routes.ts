@@ -9,6 +9,8 @@ const routes = {
     },
     private: {
         dashboard: "/dashboard",
+        edit: "/dashboard/edit",
+        add: "/dashboard/add",
     },
 };
 

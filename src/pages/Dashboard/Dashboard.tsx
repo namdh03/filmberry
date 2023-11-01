@@ -1,5 +1,6 @@
-import { Stack } from "@mui/material";
+import { Fab, Box, Stack } from "@mui/material";
 import { Delete, Edit } from "@mui/icons-material";
+import AddIcon from "@mui/icons-material/Add";
 import {
     DataGrid,
     GridColDef,
@@ -7,21 +8,38 @@ import {
     GridToolbar,
 } from "@mui/x-data-grid";
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
+import config from "@configs/index";
+import useLocalStorage from "@hooks/useLocalStorage";
 import {
     deleteMovie,
-    getAllMovies,
+    getMoviesByParams,
     markMovieTop,
 } from "@/services/movieServices";
+import { ToastProps } from "@components/Toast/Toast.type";
 import { MovieItem } from "@components/Movies/Movie/Movie.type";
 import Container from "@components/Container";
+import Toast from "@components/Toast";
 
 import DashboardModal from "./Dashboard.modal";
 import dashboardColumns from "./Dashboard.columns";
 import IOSSwitch from "./Dashboard.switch";
+import CustomNoRowsOverlay from "./Dashboard.customNoRowsOverlay";
 import { DashboardWrapper } from "./Dashboard.styled";
 
 const Dashboard = () => {
+    const navigate = useNavigate();
+    const [, setMovie] = useLocalStorage(config.localStorages.movieId, 0);
+    const [toast, setToast] = useState<ToastProps>({
+        message: "",
+        type: "success",
+        open: false,
+        setOpen: () => {
+            setToast((prevToast) => ({ ...prevToast, open: false }));
+        },
+    });
+
     const [rows, setRows] = useState<MovieItem[]>([]);
     const columns = useRef<GridColDef[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
@@ -31,7 +49,11 @@ const Dashboard = () => {
     useEffect(() => {
         (async () => {
             try {
-                const { data } = await getAllMovies();
+                const { data } = await getMoviesByParams({
+                    sortBy: "id",
+                    order: "desc",
+                });
+
                 columns.current = [
                     ...dashboardColumns,
                     {
@@ -44,6 +66,7 @@ const Dashboard = () => {
                             props: GridRenderCellParams<MovieItem>
                         ) => (
                             <IOSSwitch
+                                disabled={loading}
                                 defaultChecked={props.row.top}
                                 onChange={() =>
                                     handleToggleTopMovie(
@@ -70,13 +93,18 @@ const Dashboard = () => {
                                 <Edit
                                     cursor="pointer"
                                     sx={{ color: "warning.main" }}
+                                    onClick={() => {
+                                        setMovie(props.row.id);
+                                        navigate(config.routes.private.edit);
+                                    }}
                                 />
                                 <Delete
                                     cursor="pointer"
                                     sx={{ color: "error.main" }}
-                                    onClick={() =>
-                                        handleOpenModal(props.row.id)
-                                    }
+                                    onClick={() => {
+                                        setOpenModal(true);
+                                        movieId.current = props.row.id;
+                                    }}
                                 />
                             </Stack>
                         ),
@@ -87,12 +115,8 @@ const Dashboard = () => {
                 console.log(error);
             }
         })();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
-    const handleOpenModal = (id: number) => {
-        setOpenModal(true);
-        movieId.current = id;
-    };
 
     const handleToggleTopMovie = async (id: number, value: boolean) => {
         try {
@@ -117,6 +141,12 @@ const Dashboard = () => {
             setRows((prevRows) =>
                 prevRows.filter((row) => row.id !== movieId.current)
             );
+
+            setToast({
+                ...toast,
+                message: "Movie deleted successfully!",
+                open: true,
+            });
         } catch (error) {
             console.log(error);
         } finally {
@@ -125,47 +155,80 @@ const Dashboard = () => {
         }
     };
 
+    const handleAddMovie = () => navigate(config.routes.private.add);
+
     return (
         <DashboardWrapper>
             <Container>
-                <DataGrid
-                    rows={rows}
-                    columns={columns.current}
-                    initialState={{
-                        pagination: {
-                            paginationModel: { page: 0, pageSize: 10 },
-                        },
-                        columns: {
-                            columnVisibilityModel: {
-                                adult: false,
-                                original_language: false,
-                                original_title: false,
-                                overview: false,
-                                popularity: false,
-                                poster_path: false,
-                                release_date: false,
-                                type: false,
-                                video_url: false,
-                                vote_count: false,
+                <Stack direction="column" alignItems="flex-end" mb={4}>
+                    <Fab
+                        color="primary"
+                        aria-label="add"
+                        onClick={handleAddMovie}
+                        sx={{
+                            zIndex: 1,
+                        }}
+                    >
+                        <AddIcon />
+                    </Fab>
+                </Stack>
+
+                <Box sx={{ height: "100vh" }}>
+                    <DataGrid
+                        rows={rows.map((row, index) => ({
+                            no: index + 1,
+                            ...row,
+                        }))}
+                        columns={columns.current}
+                        initialState={{
+                            pagination: {
+                                paginationModel: { page: 0, pageSize: 10 },
                             },
-                        },
-                    }}
-                    pageSizeOptions={[10, 20, 30, 40, 50]}
-                    density="comfortable"
-                    hideFooterSelectedRowCount
-                    slots={{
-                        toolbar: GridToolbar,
-                    }}
-                    rowHeight={130}
-                />
+                            columns: {
+                                columnVisibilityModel: {
+                                    id: false,
+                                    original_title: false,
+                                    overview: false,
+                                    popularity: false,
+                                    poster_path: false,
+                                    release_date: false,
+                                    type: false,
+                                    video_url: false,
+                                    vote_average: false,
+                                    vote_count: false,
+                                },
+                            },
+                        }}
+                        pageSizeOptions={[10, 20, 30, 40, 50]}
+                        density="comfortable"
+                        hideFooterSelectedRowCount
+                        slots={{
+                            toolbar: GridToolbar,
+                            noRowsOverlay: CustomNoRowsOverlay,
+                        }}
+                        rowHeight={130}
+                    />
+                </Box>
             </Container>
 
             <DashboardModal
+                title="Are you sure you want to delete this movie?"
+                description="Deleting this movie will permanently remove it and
+                cannot be undone. Please confirm you understand."
                 loading={loading}
                 open={openModal}
                 setOpen={setOpenModal}
                 handleSubmit={handleDeleteMovie}
             />
+
+            {toast && (
+                <Toast
+                    message={toast.message}
+                    type={toast.type}
+                    open={toast.open}
+                    setOpen={toast.setOpen}
+                />
+            )}
         </DashboardWrapper>
     );
 };

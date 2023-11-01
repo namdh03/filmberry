@@ -13,9 +13,11 @@ import { MovieList, MoviesInner, MoviesWrapper } from "./Movies.styled";
 const Movies = () => {
     const [movies, setMovies] = useState<MovieItem[]>([]);
     const totalPage = useRef<number>(0);
-    const [search, setSearch] = useState<string>("");
+    const currentPage = useRef<number>(1);
+
     const [loading, setLoading] = useState<boolean>(true);
-    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [reload, setReload] = useState<boolean>(true);
+    const [search, setSearch] = useState<string>("");
     const debouncedValue = useDebounce<string>(search, 500);
 
     // Get all movies (fake get total pages)
@@ -42,9 +44,11 @@ const Movies = () => {
                 setLoading(true);
 
                 const { data } = await getMoviesByParams({
-                    page: currentPage,
+                    page: currentPage.current,
                     limit: 8,
                     search: debouncedValue,
+                    sortBy: "id",
+                    order: "desc",
                 });
 
                 setMovies(data);
@@ -52,10 +56,11 @@ const Movies = () => {
                 setLoading(false);
             }
         })();
-    }, [currentPage, debouncedValue]);
+    }, [reload, debouncedValue]);
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;
+        currentPage.current = 1;
         setSearch(value);
     };
 
@@ -63,7 +68,8 @@ const Movies = () => {
         _event: React.ChangeEvent<unknown>,
         page: number
     ) => {
-        setCurrentPage(page);
+        currentPage.current = page;
+        setReload(!reload);
     };
 
     return (
@@ -89,7 +95,7 @@ const Movies = () => {
                         )}
                     </MovieList>
 
-                    {movies.length > 0 ? (
+                    {totalPage.current > 8 && (
                         <Pagination
                             count={Math.ceil(totalPage.current / 8)}
                             shape="rounded"
@@ -97,7 +103,9 @@ const Movies = () => {
                             onChange={handleChangePage}
                             disabled={loading}
                         />
-                    ) : (
+                    )}
+
+                    {movies.length === 0 && !loading && (
                         <Typography
                             sx={{
                                 color: "text.primary",

@@ -5,7 +5,7 @@ export const lightTheme: PaletteOptions = {
         main: "#6F5CF1",
     },
     secondary: {
-        main: "rgb(203 213 225)",
+        main: "#FFFFFF",
     },
     success: {
         main: "#47D764",
