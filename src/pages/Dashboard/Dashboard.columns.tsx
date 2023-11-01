@@ -44,7 +44,7 @@ const dashboardColumns: GridColDef[] = [
         renderCell: (props: GridRenderCellParams<MovieItem>) => (
             <Avatar
                 variant="rounded"
-                src={props.row.backdrop_path}
+                src={props.row.poster_path}
                 sx={{ width: "85%", height: "85%" }}
                 alt={props.row.title}
             />
