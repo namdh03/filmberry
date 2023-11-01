@@ -67,7 +67,7 @@ const Movie = () => {
             id: 4,
             label: "Vote Average",
             icon: <Rating max={1} value={1} sx={{ color: "warning.main" }} />,
-            content: movie?.vote_average.toFixed(1),
+            content: Number(movie?.vote_average).toFixed(1),
         },
 
         {

@@ -1,10 +1,12 @@
-import { get, put, remove } from "@utils/api";
+import { get, post, put, remove } from "@utils/api";
 import { MovieItem } from "@components/Movies/Movie/Movie.type";
 
 type ParamType = {
     page?: number;
     limit?: number;
     search?: string;
+    sortBy?: string;
+    order?: string;
 };
 
 export const filterMovies = (params: object) => {
@@ -33,4 +35,8 @@ export const markMovieTop = (id: number, status: boolean) => {
 
 export const updateMovie = (id: number, data: MovieItem) => {
     return put(`/movies/${id}`, data);
+};
+
+export const createMovie = (movie: MovieItem) => {
+    return post(`/movies`, movie);
 };

@@ -10,10 +10,12 @@ import {
     Stack,
 } from "@mui/material";
 import { useState, memo } from "react";
+import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 
+import config from "@configs/index";
 import { darkTheme } from "@themes/index";
-import { updateMovie } from "@/services/movieServices";
+import { createMovie, updateMovie } from "@/services/movieServices";
 import { MovieItem } from "@components/Movies/Movie/Movie.type";
 import { ToastProps } from "@components/Toast/Toast.type";
 import Toast from "@components/Toast";
@@ -27,11 +29,16 @@ const Form = memo(
         title,
         icon,
         movie,
+        modalTitle,
+        modalDescription,
     }: {
         title: string;
         icon: JSX.Element;
         movie?: MovieItem;
+        modalTitle?: string;
+        modalDescription?: string;
     }) => {
+        const navigate = useNavigate();
         const formik = useFormik({
             enableReinitialize: true,
             initialValues: {
@@ -55,14 +62,24 @@ const Form = memo(
                 try {
                     setLoading(true);
 
-                    if (!movie) return;
-                    await updateMovie(movie.id, values as MovieItem);
+                    if (!movie) {
+                        await createMovie(values as MovieItem);
+                        setToast({
+                            ...toast,
+                            message: "Movie added successfully!",
+                            open: true,
+                        });
+                        formik.resetForm();
+                        return;
+                    }
 
+                    await updateMovie(movie.id, values as MovieItem);
                     setToast({
                         ...toast,
-                        message: "Movie deleted successfully!",
+                        message: "Movie updated successfully!",
                         open: true,
                     });
+                    navigate(config.routes.private.dashboard);
                 } catch (error) {
                     console.log(error);
                 } finally {
@@ -128,18 +145,12 @@ const Form = memo(
                         component="form"
                         onSubmit={formik.handleSubmit}
                         noValidate
-                        sx={{
-                            mt: 4,
-                            display: "grid",
-                            gridTemplateColumns: "repeat(2, 1fr)",
-                            gap: "24px",
-                            width: "100%",
-                        }}
                     >
                         {inputFields.map((inputField) => {
                             if (inputField.select) {
                                 return (
                                     <TextField
+                                        margin="normal"
                                         key={inputField.id}
                                         select={inputField.select}
                                         required
@@ -186,12 +197,16 @@ const Form = memo(
                             } else if (inputField.switch) {
                                 return (
                                     <Stack
+                                        margin="normal"
                                         key={inputField.id}
                                         direction="row"
                                         alignItems="center"
                                     >
                                         <Typography
-                                            sx={{ color: "text.primary" }}
+                                            sx={{
+                                                minWidth: "50px",
+                                                color: "text.primary",
+                                            }}
                                         >
                                             {inputField.label}
                                         </Typography>
@@ -217,10 +232,12 @@ const Form = memo(
                             } else {
                                 return (
                                     <TextField
+                                        margin="normal"
                                         key={inputField.id}
                                         required
                                         fullWidth
                                         multiline={inputField.multiline}
+                                        maxRows={10}
                                         id={inputField.id}
                                         label={inputField.label}
                                         name={inputField.name}
@@ -262,13 +279,13 @@ const Form = memo(
                         sx={{ mt: 3, mb: 2 }}
                         onClick={() => setOpenModal(true)}
                     >
-                        Update
+                        {movie ? "Update" : "Add"}
                     </Button>
                 </Box>
 
                 <DashboardModal
-                    title="Are you sure you want to update this movie?"
-                    description="Updating this movie will save the changes to it. Please confirm you want to update this movie."
+                    title={modalTitle || ""}
+                    description={modalDescription || ""}
                     loading={loading}
                     open={openModal}
                     setOpen={setOpenModal}

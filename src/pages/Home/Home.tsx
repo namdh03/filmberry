@@ -21,18 +21,30 @@ const Home = () => {
     useEffect(() => {
         (async () => {
             try {
-                const { data: topList } = await filterMovies({ top: true });
+                const { data: topList } = await filterMovies({
+                    top: true,
+                    sortBy: "id",
+                    order: "desc",
+                });
                 const { data: upcomingList } = await filterMovies({
                     type: MovieType.UPCOMING,
+                    sortBy: "id",
+                    order: "desc",
                 });
                 const { data: nowPlayingList } = await filterMovies({
                     type: MovieType.NOW_PLAYING,
+                    sortBy: "id",
+                    order: "desc",
                 });
                 const { data: popularList } = await filterMovies({
                     type: MovieType.POPULAR,
+                    sortBy: "id",
+                    order: "desc",
                 });
                 const { data: topRatedList } = await filterMovies({
                     type: MovieType.TOP_RATED,
+                    sortBy: "id",
+                    order: "desc",
                 });
 
                 setMovies((prevMovies) => ({

@@ -90,7 +90,9 @@ const Banner = ({ list, loading }: { list: MovieItem[]; loading: boolean }) => {
                                                 sx={{ color: "warning.main" }}
                                             />
                                             <Typography>
-                                                {movie.vote_average.toFixed(1)}
+                                                {Number(
+                                                    movie.vote_average
+                                                ).toFixed(1)}
                                             </Typography>
                                         </RatingWrapper>
 

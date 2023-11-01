@@ -43,8 +43,10 @@ const Movies = () => {
 
                 const { data } = await getMoviesByParams({
                     page: currentPage,
-                    limit: 8,
+                limit: 4,
                     search: debouncedValue,
+                    sortBy: "id",
+                    order: "desc",
                 });
 
                 setMovies(data);
@@ -81,7 +83,7 @@ const Movies = () => {
 
                     <MovieList>
                         {loading ? (
-                            <MovieListSkeleton count={8} />
+                            <MovieListSkeleton count={4} />
                         ) : (
                             movies.map((movie) => (
                                 <Movie key={movie.id} movie={movie} />
@@ -91,21 +93,23 @@ const Movies = () => {
 
                     {movies.length > 0 ? (
                         <Pagination
-                            count={Math.ceil(totalPage.current / 8)}
+                            count={Math.ceil(totalPage.current / 4)}
                             shape="rounded"
                             size="large"
                             onChange={handleChangePage}
                             disabled={loading}
                         />
                     ) : (
-                        <Typography
-                            sx={{
-                                color: "text.primary",
-                                fontSize: "20px",
-                            }}
-                        >
-                            Not Found!
-                        </Typography>
+                        !loading && (
+                            <Typography
+                                sx={{
+                                    color: "text.primary",
+                                    fontSize: "20px",
+                                }}
+                            >
+                                Not Found!
+                            </Typography>
+                        )
                     )}
                 </MoviesInner>
             </Container>

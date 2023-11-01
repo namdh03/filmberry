@@ -33,11 +33,12 @@ const DashboardModal = memo(
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={() => setOpen(false)}>Disagree</Button>
-
                     <LoadingButton loading={loading} onClick={handleSubmit}>
                         Agree
                     </LoadingButton>
+                    <Button variant="contained" onClick={() => setOpen(false)}>
+                        Disagree
+                    </Button>
                 </DialogActions>
             </Dialog>
         );

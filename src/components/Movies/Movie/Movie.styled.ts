@@ -9,6 +9,9 @@ export const MovieWrapper = styled(Box)`
     border-radius: 16px;
     background-color: ${({ theme }) => theme.palette.secondary.main};
 
+    border: 1px solid ${({ theme }) => theme.palette.primary.main};
+    box-shadow: 0 5px 15px 0 ${({ theme }) => theme.palette.background.default};
+
     & figure {
         margin: 0;
         min-width: 243px;

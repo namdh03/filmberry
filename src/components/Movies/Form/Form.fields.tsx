@@ -1,5 +1,9 @@
 export const typeMovie = [
     {
+        value: "",
+        label: <em>None</em>,
+    },
+    {
         value: "upcoming",
         label: "Upcoming",
     },

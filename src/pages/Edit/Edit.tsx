@@ -31,7 +31,13 @@ const Edit = () => {
     return (
         <EditWrapper>
             <Container>
-                <Form title="Update Movie" icon={<EditIcon />} movie={movie} />
+                <Form
+                    title="Update Movie"
+                    icon={<EditIcon />}
+                    movie={movie}
+                    modalTitle="Are you sure you want to update this movie?"
+                    modalDescription="Updating this movie will save the changes to it. Please confirm you want to update this movie."
+                />
             </Container>
         </EditWrapper>
     );
