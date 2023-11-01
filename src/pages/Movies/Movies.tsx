@@ -12,7 +12,7 @@ import { MovieList, MoviesInner, MoviesWrapper } from "./Movies.styled";
 
 const Movies = () => {
     const [movies, setMovies] = useState<MovieItem[]>([]);
-    const totalPage = useRef<number>(0);
+    const [totalPage, setTotalPage] = useState<number>(0);
     const currentPage = useRef<number>(1);
 
     const [loading, setLoading] = useState<boolean>(true);
@@ -30,7 +30,7 @@ const Movies = () => {
                     search: debouncedValue,
                 });
 
-                totalPage.current = data.length;
+                setTotalPage(data.length);
             } finally {
                 setLoading(false);
             }
@@ -95,9 +95,9 @@ const Movies = () => {
                         )}
                     </MovieList>
 
-                    {totalPage.current > 8 && (
+                    {totalPage > 8 && (
                         <Pagination
-                            count={Math.ceil(totalPage.current / 8)}
+                            count={Math.ceil(totalPage / 8)}
                             shape="rounded"
                             size="large"
                             onChange={handleChangePage}

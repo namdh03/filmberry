@@ -1,14 +1,15 @@
 import {
+    Button,
     MenuItem,
     Typography,
     Avatar,
     Box,
     Container,
-    Button,
     TextField,
     Switch,
     Stack,
 } from "@mui/material";
+import { LoadingButton } from "@mui/lab";
 import { useState, memo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
@@ -67,6 +68,7 @@ const Form = memo(
                         setToast({
                             ...toast,
                             message: "Movie added successfully!",
+                            type: "success",
                             open: true,
                         });
                         formik.resetForm();
@@ -77,9 +79,9 @@ const Form = memo(
                     setToast({
                         ...toast,
                         message: "Movie updated successfully!",
+                        type: "success",
                         open: true,
                     });
-                    navigate(config.routes.private.dashboard);
                 } catch (error) {
                     console.log(error);
                 } finally {
@@ -272,7 +274,8 @@ const Form = memo(
                         })}
                     </Box>
 
-                    <Button
+                    <LoadingButton
+                        loading={loading}
                         fullWidth
                         size="large"
                         variant="contained"
@@ -280,6 +283,17 @@ const Form = memo(
                         onClick={() => setOpenModal(true)}
                     >
                         {movie ? "Update" : "Add"}
+                    </LoadingButton>
+
+                    <Button
+                        fullWidth
+                        size="large"
+                        variant="outlined"
+                        onClick={() =>
+                            navigate(config.routes.private.dashboard)
+                        }
+                    >
+                        Back To Dashboard
                     </Button>
                 </Box>
 
