@@ -60,7 +60,6 @@ export function signOut(): PayloadAction<AuthState> {
     return {
         type: AuthActionType.SIGN_OUT,
         payload: {
-            isAuthenticated: false,
             user: null,
         },
     };
