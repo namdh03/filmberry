@@ -13,9 +13,11 @@ import { MovieList, MoviesInner, MoviesWrapper } from "./Movies.styled";
 const Movies = () => {
     const [movies, setMovies] = useState<MovieItem[]>([]);
     const totalPage = useRef<number>(0);
-    const [search, setSearch] = useState<string>("");
+    const currentPage = useRef<number>(1);
+
     const [loading, setLoading] = useState<boolean>(true);
-    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [reload, setReload] = useState<boolean>(true);
+    const [search, setSearch] = useState<string>("");
     const debouncedValue = useDebounce<string>(search, 500);
 
     // Get all movies (fake get total pages)
@@ -42,8 +44,8 @@ const Movies = () => {
                 setLoading(true);
 
                 const { data } = await getMoviesByParams({
-                    page: currentPage,
-                limit: 4,
+                    page: currentPage.current,
+                    limit: 8,
                     search: debouncedValue,
                     sortBy: "id",
                     order: "desc",
@@ -54,10 +56,11 @@ const Movies = () => {
                 setLoading(false);
             }
         })();
-    }, [currentPage, debouncedValue]);
+    }, [reload, debouncedValue]);
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;
+        currentPage.current = 1;
         setSearch(value);
     };
 
@@ -65,7 +68,8 @@ const Movies = () => {
         _event: React.ChangeEvent<unknown>,
         page: number
     ) => {
-        setCurrentPage(page);
+        currentPage.current = page;
+        setReload(!reload);
     };
 
     return (
@@ -83,7 +87,7 @@ const Movies = () => {
 
                     <MovieList>
                         {loading ? (
-                            <MovieListSkeleton count={4} />
+                            <MovieListSkeleton count={8} />
                         ) : (
                             movies.map((movie) => (
                                 <Movie key={movie.id} movie={movie} />
@@ -91,25 +95,25 @@ const Movies = () => {
                         )}
                     </MovieList>
 
-                    {movies.length > 0 ? (
+                    {totalPage.current > 8 && (
                         <Pagination
-                            count={Math.ceil(totalPage.current / 4)}
+                            count={Math.ceil(totalPage.current / 8)}
                             shape="rounded"
                             size="large"
                             onChange={handleChangePage}
                             disabled={loading}
                         />
-                    ) : (
-                        !loading && (
-                            <Typography
-                                sx={{
-                                    color: "text.primary",
-                                    fontSize: "20px",
-                                }}
-                            >
-                                Not Found!
-                            </Typography>
-                        )
+                    )}
+
+                    {movies.length === 0 && !loading && (
+                        <Typography
+                            sx={{
+                                color: "text.primary",
+                                fontSize: "20px",
+                            }}
+                        >
+                            Not Found!
+                        </Typography>
                     )}
                 </MoviesInner>
             </Container>
