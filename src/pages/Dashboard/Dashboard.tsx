@@ -82,6 +82,8 @@ const Dashboard = () => {
                         headerName: "Actions",
                         width: 130,
                         hideable: false,
+                        sortable: false,
+                        filterable: false,
                         renderCell: (
                             props: GridRenderCellParams<MovieItem>
                         ) => (
